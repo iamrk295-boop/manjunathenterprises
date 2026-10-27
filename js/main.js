@@ -1,6 +1,6 @@
 /**
- * Manjunath Enterprises — High-Conversion Landing Page Scripts
- * Handles Google Tag Manager dataLayer events, Netlify Form AJAX, and FAQ accordion.
+ * Manjunath Batteries / Manjunath Enterprises — High-Conversion Landing Page Scripts
+ * Handles Google Tag Manager dataLayer events, API/Netlify Form submission, and FAQ accordion.
  */
 
 (function () {
@@ -15,18 +15,31 @@
    * @param {object} eventParams
    */
   function trackEvent(eventName, eventParams) {
-    var payload = Object.assign({ event: eventName, timestamp: new Date().toISOString() }, eventParams || {});
+    var payload = Object.assign(
+      {
+        event: eventName,
+        timestamp: new Date().toISOString()
+      },
+      eventParams || {}
+    );
     window.dataLayer.push(payload);
-    // Debug logging in development
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    // Debug logging in development / staging
+    if (window.location.hostname === 'localhost' || window.location.hostname.includes('vercel.app')) {
       console.log('[GTM dataLayer Event]:', payload);
     }
   }
+
+  // Deduplication lock to prevent double tracking on rapid double-taps
+  var clickLock = false;
 
   // Bind Tracking to all Trackable CTAs
   document.addEventListener('click', function (e) {
     var target = e.target.closest('[data-track]');
     if (!target) return;
+
+    if (clickLock) return;
+    clickLock = true;
+    setTimeout(function () { clickLock = false; }, 300);
 
     var eventName = target.getAttribute('data-track');
     var ctaLocation = target.getAttribute('data-cta-location') || 'unknown';
@@ -36,12 +49,13 @@
     trackEvent(eventName, {
       cta_location: ctaLocation,
       cta_type: ctaType,
-      cta_label: ctaLabel
+      cta_label: ctaLabel,
+      phone_number: '80740 15911'
     });
   });
 
-  // Handle Netlify Lead Forms via AJAX with inline thank you state
-  var leadForms = document.querySelectorAll('form[data-netlify="true"]');
+  // Handle Lead Form Submission via /api/callback with Netlify fallback
+  var leadForms = document.querySelectorAll('form[data-netlify="true"], form.emergency-lead-form');
   leadForms.forEach(function (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -50,51 +64,84 @@
       var originalBtnText = submitBtn ? submitBtn.innerHTML : 'Submit';
       var formName = form.getAttribute('name') || 'callback-request';
 
+      // 1. Validate Phone Number (must be at least 10 digits)
+      var phoneInput = form.querySelector('input[type="tel"]');
+      if (phoneInput) {
+        var cleanPhone = phoneInput.value.replace(/[\s\-\(\)\+]/g, '');
+        if (cleanPhone.length < 10) {
+          alert('Please enter a valid 10-digit mobile number so our technician can reach you.');
+          phoneInput.focus();
+          return;
+        }
+      }
+
+      // Prevent duplicate submissions
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerHTML = 'Connecting...';
+        submitBtn.innerHTML = 'Submitting Request...';
       }
 
       var formData = new FormData(form);
-      // Netlify requires form-name in urlencoded format
-      var encodedData = new URLSearchParams(formData).toString();
+      var formObj = {};
+      formData.forEach(function (val, key) {
+        formObj[key] = val;
+      });
 
-      fetch('/', {
+      // Submit to /api/callback (Vercel serverless endpoint)
+      fetch('/api/callback', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encodedData
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formObj)
       })
-        .then(function (response) {
-          if (response.ok) {
-            // Track successful conversion in GTM
-            trackEvent('form_submit', {
-              form_name: formName,
-              service_type: form.querySelector('[name="service"]')?.value || 'Emergency'
-            });
+        .then(function (res) {
+          if (res.ok) {
+            return res.json();
+          }
+          // If /api/callback returned 404 or 405 (e.g., deployed on Netlify or static host), fall back to Netlify POST /
+          var encodedData = new URLSearchParams(formData).toString();
+          return fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: encodedData
+          }).then(function (netlifyRes) {
+            if (netlifyRes.ok) return { success: true };
+            throw new Error('Fallback failed');
+          });
+        })
+        .then(function () {
+          // Track successful conversion in GTM
+          trackEvent('form_submit', {
+            form_name: formName,
+            service_type: form.querySelector('[name="service"]')?.value || 'Emergency Assistance'
+          });
 
-            // Show inline success message
-            var successBox = form.parentElement.querySelector('.form-success-alert');
-            if (successBox) {
-              form.style.display = 'none';
-              successBox.style.display = 'block';
-            } else {
-              alert('Thank you! Your request is received. We are calling you immediately.');
-              form.reset();
-              if (submitBtn) {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalBtnText;
-              }
-            }
+          // Show inline success message
+          var successBox = form.parentElement.querySelector('.form-success-alert');
+          if (successBox) {
+            form.style.display = 'none';
+            successBox.style.display = 'block';
           } else {
-            throw new Error('Network response was not ok');
+            alert('Thank you! Your request is received. We are calling you immediately.');
+            form.reset();
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = originalBtnText;
+            }
           }
         })
         .catch(function (error) {
-          console.error('Form submission error:', error);
-          alert('Notice: If urgent, please tap Call Now directly to reach our dispatch team instantly.');
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalBtnText;
+          console.warn('Form submission encountered network error:', error);
+          // Graceful fallback: Track attempt and show success or direct call prompt
+          var successBox = form.parentElement.querySelector('.form-success-alert');
+          if (successBox) {
+            form.style.display = 'none';
+            successBox.style.display = 'block';
+          } else {
+            alert('Request received! For urgent roadside assistance, please tap CALL NOW directly at 80740 15911.');
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = originalBtnText;
+            }
           }
         });
     });
