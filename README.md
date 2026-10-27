@@ -1,4 +1,4 @@
-# Manjunath Batteries (Manjunath Enterprises) — Google Ads Landing Page
+# Manjutha Batteries (Manjunath Enterprises) — Google Ads Landing Page
 
 > High-conversion, mobile-first emergency automotive battery assistance landing page for East Bengaluru (Whitefield, Belathur, Kadugodi & ITPL). Engineered with fail-closed lead delivery, honest client error handling, anti-spam honeypot filtering, and verified conversion tracking.
 
@@ -8,7 +8,7 @@
 
 - **Staging Deployment:** [https://manjunathenterprises.vercel.app/](https://manjunathenterprises.vercel.app/)
 - **Proposed Production Domain:** `https://manjunathabatteries.in/` *(Domain not yet purchased; do not declare live until DNS is pointed).*
-- **Operating Brand:** Manjunath Batteries (JumpStart Experts)
+- **Operating Brand:** Manjutha Batteries (JumpStart Experts)
 - **Legal Entity:** Manjunath Enterprises
 - **Direct Dispatch Line:** `+91 80740 15911` (Display: `80740 15911`)
 - **Store & Hub Address:** `30 A, Belathur, Krishnarajapuram, Bengaluru, Karnataka 560067`
@@ -88,7 +88,7 @@ Previously, the frontend catch block displayed a green "Request Received" succes
 ## 5. Google Ads Tracking & Analytics (Priority 4)
 
 ### GTM Container Setup:
-In [index.html](file:///c:/GitHub/manjunathenterprises/index.html#L21), [contact-us.html](file:///c:/GitHub/manjunathenterprises/contact-us.html#L4), and [privacy-policy.html](file:///c:/GitHub/manjunathenterprises/privacy-policy.html#L4), replace the placeholder `GTM-XXXXXXX` with your live Google Tag Manager Container ID before running ads.
+The live Google Tag Manager Container ID **`GTM-5W6HQ7G3`** is installed across [index.html](file:///c:/GitHub/manjunathenterprises/index.html#L21), [contact-us.html](file:///c:/GitHub/manjunathenterprises/contact-us.html#L4), and [privacy-policy.html](file:///c:/GitHub/manjunathenterprises/privacy-policy.html#L4) with official script loaders in `<head>` and noscript iframes immediately following `<body>`.
 
 ### Event Definitions:
 All interactions push structured objects to `window.dataLayer`:
@@ -187,7 +187,8 @@ Configure in **Vercel Project Settings > Environment Variables**:
    - Purchase the domain through a registrar.
    - In Vercel Project Settings > Domains, add `manjunathabatteries.in` and update DNS records.
 3. **Configure Google Tag Manager Container ID**:
-   - Replace `GTM-XXXXXXX` with your live GTM Container ID across `index.html`, `contact-us.html`, and `privacy-policy.html`.
-4. **Link Google Ads Conversion Actions**:
-   - Create a Custom Event trigger in GTM for `form_submit` (Primary conversion).
-   - Create Custom Event triggers for `call_click` and `whatsapp_click` (Secondary conversions).
+   - Container `GTM-5W6HQ7G3` is already installed in `<head>` and `<body>` across `index.html`, `contact-us.html`, and `privacy-policy.html`.
+4. **Link Google Ads Conversion Actions in GTM Dashboard**:
+   - In your Google Tag Manager dashboard for container `GTM-5W6HQ7G3`, configure Google Ads conversion tags.
+   - Create a Custom Event trigger in GTM for `whatsapp_form_submit` (Form intent).
+   - Create Custom Event triggers for `call_click` and `whatsapp_click` (Direct call & chat intent).

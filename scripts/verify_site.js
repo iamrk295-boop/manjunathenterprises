@@ -1,5 +1,5 @@
 /**
- * Comprehensive Automated Verification Script for Manjunath Batteries Landing Page
+ * Comprehensive Automated Verification Script for Manjutha Batteries Landing Page
  * Tests:
  * 1. Hero copy, CTA hierarchy & phone/WhatsApp links
  * 2. Focused 2-service requirements (Service A & B)
@@ -47,7 +47,7 @@ const indexHtml = fs.readFileSync(indexPath, 'utf8');
 console.log('--- 1. Hero Section Copy & CTA Hierarchy ---');
 assert(indexHtml.includes('Car Battery Dead?'), 'Hero has required headline start "Car Battery Dead?"');
 assert(indexHtml.includes('Get Battery Assistance Fast.'), 'Hero headline includes "Get Battery Assistance Fast."');
-assert(indexHtml.includes('Need a jump-start or replacement battery? Call Manjunath Batteries for assistance in'), 'Hero has required supporting text with Manjunath Batteries');
+assert(indexHtml.includes('Need a jump-start or replacement battery? Call Manjutha Batteries for assistance in'), 'Hero has required supporting text with Manjutha Batteries');
 assert(indexHtml.includes('>CALL NOW<') || indexHtml.includes('<span>CALL NOW</span>'), 'Hero primary CTA is "CALL NOW"');
 assert(indexHtml.includes('>WHATSAPP US<') || indexHtml.includes('<span>WHATSAPP US</span>'), 'Hero secondary CTA is "WHATSAPP US"');
 assert(indexHtml.includes('tel:+918074015911'), 'Working tel: link present');
@@ -85,6 +85,7 @@ assert(fs.existsSync(contactPath), 'Dedicated contact-us.html exists');
 assert(fs.existsSync(privacyPath), 'Dedicated privacy-policy.html exists');
 
 const contactHtml = fs.readFileSync(contactPath, 'utf8');
+const privacyHtml = fs.readFileSync(privacyPath, 'utf8');
 assert(contactHtml.includes('30 A, Belathur, Krishnarajapuram, Bengaluru, Karnataka 560067'), 'Contact page has verified full address');
 assert(contactHtml.includes('tel:+918074015911'), 'Contact page has working phone link');
 
@@ -113,7 +114,7 @@ assert(normalizePhone('abcdefghij') === null, 'Rejects non-numeric input');
 const mainJs = fs.readFileSync(path.join(__dirname, '..', 'js', 'main.js'), 'utf8');
 assert(mainJs.includes('BUSINESS_WHATSAPP_NUMBER = \'918074015911\''), 'Verified business WhatsApp number 918074015911 isolated in main.js');
 assert(mainJs.includes('https://wa.me/') && mainJs.includes('encodeURIComponent'), 'Constructs valid wa.me URL with encodeURIComponent');
-assert(mainJs.includes('Hello Manjunath Batteries, I need battery assistance.'), 'Message structure includes greeting "Hello Manjunath Batteries, I need battery assistance."');
+assert(mainJs.includes('Hello Manjutha Batteries, I need battery assistance.'), 'Message structure includes greeting "Hello Manjutha Batteries, I need battery assistance."');
 assert(mainJs.includes('My phone number: '), 'Message structure includes "My phone number: "');
 assert(mainJs.includes('Service required: '), 'Message structure includes "Service required: "');
 assert(mainJs.includes('Please contact me as soon as possible.'), 'Message structure includes closing "Please contact me as soon as possible."');
@@ -122,21 +123,67 @@ assert(contactHtml.includes('class="form-whatsapp-alert"'), 'contact-us.html has
 assert(mainJs.includes("interaction_type: 'intent'"), 'Marks intent without claiming completed WhatsApp message delivery');
 assert(!mainJs.includes("conversion_status: 'verified_lead'"), 'Does not claim verified lead before WhatsApp message is sent');
 
-console.log('\n--- 7. Targeted Header Branding & Top-Right Phone CTA Checks ---');
-assert(indexHtml.includes('class="brand-title">MANJUNATH <span>BATTERIES</span></span>'), 'index.html primary header brand is "MANJUNATH BATTERIES"');
-assert(indexHtml.includes('Car Battery Jump-Start &amp; Replacement Assistance') || indexHtml.includes('Car Battery Jump-Start & Replacement Assistance'), 'index.html brand descriptor matches "Car Battery Jump-Start & Replacement Assistance"');
+console.log('\n--- 7. Correct Business Brand Name ("Manjutha Batteries") & Legal Entity ---');
+assert(indexHtml.includes('class="brand-title">MANJUTHA <span>BATTERIES</span></span>'), 'index.html primary header brand is "MANJUTHA BATTERIES"');
+assert(contactHtml.includes('class="brand-title">MANJUTHA <span>BATTERIES</span></span>'), 'contact-us.html header brand is "MANJUTHA BATTERIES"');
+assert(privacyHtml.includes('class="brand-title">MANJUTHA <span>BATTERIES</span></span>'), 'privacy-policy.html header brand is "MANJUTHA BATTERIES"');
+assert(indexHtml.includes('<title>Car Battery Dead? Jump-Start & Replacement Assistance | Manjutha Batteries</title>'), 'index.html title uses Manjutha Batteries');
+assert(contactHtml.includes('<title>Contact Us | Manjutha Batteries — Automotive Battery Assistance Bengaluru</title>'), 'contact-us.html title uses Manjutha Batteries');
+assert(privacyHtml.includes('<title>Privacy Policy | Manjutha Batteries — Manjunath Enterprises</title>'), 'privacy-policy.html title uses Manjutha Batteries');
+assert(indexHtml.includes('"name": "Manjutha Batteries"'), 'index.html Schema.org name is Manjutha Batteries');
+assert(contactHtml.includes('"name": "Manjutha Batteries"'), 'contact-us.html Schema.org name is Manjutha Batteries');
+assert(privacyHtml.includes('"name": "Privacy Policy - Manjutha Batteries / Manjunath Enterprises"'), 'privacy-policy.html Schema.org name is Manjutha Batteries');
+assert(indexHtml.includes('class="footer-brand-title">MANJUTHA BATTERIES</div>'), 'index.html footer brand title is MANJUTHA BATTERIES');
+assert(!indexHtml.includes('Manjunath Batteries'), 'Zero occurrences of incorrect "Manjunath Batteries" in index.html');
+assert(!contactHtml.includes('Manjunath Batteries'), 'Zero occurrences of incorrect "Manjunath Batteries" in contact-us.html');
+assert(!privacyHtml.includes('Manjunath Batteries'), 'Zero occurrences of incorrect "Manjunath Batteries" in privacy-policy.html');
+assert(!mainJs.includes('Manjunath Batteries'), 'Zero occurrences of incorrect "Manjunath Batteries" in main.js');
+assert(indexHtml.includes('Manjunath Enterprises') && indexHtml.includes('operating trade name of Manjunath Enterprises'), 'Legal entity Manjunath Enterprises preserved in footer disclaimer');
+assert(indexHtml.includes('© 2026 Manjunath Enterprises. All rights reserved.'), 'Legal copyright Manjunath Enterprises preserved in index.html');
+assert(contactHtml.includes('© 2026 Manjunath Enterprises. All rights reserved.'), 'Legal copyright Manjunath Enterprises preserved in contact-us.html');
+assert(privacyHtml.includes('© 2026 Manjunath Enterprises. All rights reserved.'), 'Legal copyright Manjunath Enterprises preserved in privacy-policy.html');
+
+console.log('\n--- 8. Google Tag Manager (GTM-5W6HQ7G3) Container Installation ---');
+const pages = [
+  { name: 'index.html', content: indexHtml },
+  { name: 'contact-us.html', content: contactHtml },
+  { name: 'privacy-policy.html', content: privacyHtml }
+];
+
+pages.forEach(p => {
+  // GTM Script in Head
+  assert(p.content.includes("'https://www.googletagmanager.com/gtm.js?id='+i+dl"), `${p.name} has official GTM script loader`);
+  assert(p.content.includes("})(window,document,'script','dataLayer','GTM-5W6HQ7G3');"), `${p.name} GTM script uses GTM-5W6HQ7G3`);
+  
+  // GTM Noscript in Body
+  assert(p.content.includes('<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5W6HQ7G3"'), `${p.name} noscript iframe uses GTM-5W6HQ7G3`);
+  
+  // No placeholders
+  assert(!p.content.includes('GTM-XXXXXXX'), `${p.name} has no GTM-XXXXXXX placeholders remaining`);
+  
+  // No duplicates
+  const scriptOccurrences = (p.content.match(/googletagmanager\.com\/gtm\.js/g) || []).length;
+  const noscriptOccurrences = (p.content.match(/googletagmanager\.com\/ns\.html/g) || []).length;
+  assert(scriptOccurrences === 1, `${p.name} has exactly 1 GTM script (no duplicates)`);
+  assert(noscriptOccurrences === 1, `${p.name} has exactly 1 GTM noscript iframe (no duplicates)`);
+  
+  // Position checks
+  const headIdx = p.content.indexOf('<head>');
+  const gtmScriptIdx = p.content.indexOf("googletagmanager.com/gtm.js");
+  const bodyIdx = p.content.indexOf('<body>');
+  const gtmNoscriptIdx = p.content.indexOf("googletagmanager.com/ns.html");
+  assert(gtmScriptIdx > headIdx && gtmScriptIdx < bodyIdx, `${p.name} GTM script is located inside <head>`);
+  assert(gtmNoscriptIdx > bodyIdx, `${p.name} GTM noscript is located immediately inside <body>`);
+});
+
+console.log('\n--- 9. Targeted Header Phone CTA Checks ---');
 assert(indexHtml.includes('class="header-phone-btn"'), 'index.html header phone has dedicated .header-phone-btn conversion container');
 assert(indexHtml.includes('class="header-phone-action">CALL NOW</span>'), 'index.html header phone has clear "CALL NOW" action tag');
 assert(indexHtml.includes('class="header-phone-digits">80740 15911</span>'), 'index.html header phone has legible digits 80740 15911');
-assert(contactHtml.includes('class="brand-title">MANJUNATH <span>BATTERIES</span></span>'), 'contact-us.html header brand is "MANJUNATH BATTERIES"');
 assert(contactHtml.includes('class="header-phone-action">CALL NOW</span>'), 'contact-us.html header phone has "CALL NOW"');
-
-const privacyHtml = fs.readFileSync(privacyPath, 'utf8');
-assert(privacyHtml.includes('class="brand-title">MANJUNATH <span>BATTERIES</span></span>'), 'privacy-policy.html header brand is "MANJUNATH BATTERIES"');
 assert(privacyHtml.includes('class="header-phone-action">CALL NOW</span>'), 'privacy-policy.html header phone has "CALL NOW"');
-assert(indexHtml.includes('Manjunath Enterprises') && indexHtml.includes('operating trade name of Manjunath Enterprises'), 'Legal entity Manjunath Enterprises preserved in footer disclaimer');
 
-console.log('\n--- 8. API Callback Security & Reliability Tests (/api/callback) ---');
+console.log('\n--- 10. API Callback Security & Reliability Tests (/api/callback) ---');
 
 function createMockRes() {
   return {

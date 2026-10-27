@@ -286,7 +286,7 @@ module.exports = async function handler(req, res) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'User-Agent': 'ManjunathBatteries-LeadDispatcher/1.0'
+          'User-Agent': 'ManjuthaBatteries-LeadDispatcher/1.0'
         },
         body: JSON.stringify(leadPayload),
         signal: controller.signal

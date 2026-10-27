@@ -1,5 +1,5 @@
 /**
- * Manjunath Batteries / Manjunath Enterprises — High-Conversion Landing Page Scripts
+ * Manjutha Batteries / Manjunath Enterprises — High-Conversion Landing Page Scripts
  * Features:
  * - Resilient lead submission handling (success displayed ONLY on verified 200 OK from server)
  * - Honest error recovery with immediate "Tap to Call Now" fallback
@@ -204,7 +204,7 @@
 
         // 4. Construct WhatsApp Enquiry Message with structured fields
         var messageLines = [
-          'Hello Manjunath Batteries, I need battery assistance.',
+          'Hello Manjutha Batteries, I need battery assistance.',
           'Name: ' + customerName,
           'My phone number: ' + normalizedPhone,
           'Car model: ' + (carModel || 'Not specified'),
