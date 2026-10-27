@@ -186,7 +186,7 @@
             <p class="form-desc">For general inquiries or battery pricing information.</p>
           </div>
 
-          <form name="contact-page" method="POST" action="/api/callback" data-netlify="true" netlify-honeypot="bot-field" class="emergency-lead-form">
+          <form name="contact-page" method="POST" action="/api/callback" data-netlify="true" netlify-honeypot="bot-field" class="emergency-lead-form" novalidate>
             <input type="hidden" name="form-name" value="contact-page">
             <p class="sr-only">
               <label>Anti-bot honeypot: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
@@ -198,8 +198,7 @@
                      id="contact-phone" 
                      name="phone" 
                      class="form-input" 
-                     placeholder="Your 10-digit number" 
-                     pattern="[\+]?[0-9\s\-]{10,15}" 
+                     placeholder="10-digit mobile (e.g. 80740 15911 or +91 80740 15911)" 
                      inputmode="tel" 
                      autocomplete="tel" 
                      required>
@@ -222,9 +221,27 @@
             </div>
 
             <button type="submit" class="btn btn-call form-submit-btn" data-track="form_submit" data-cta-location="contact_page_form">
-              SEND INQUIRY
+              SEND DETAILS VIA WHATSAPP
             </button>
+            <p class="form-note">⚡ Opens WhatsApp with your inquiry pre-filled. Please tap Send in WhatsApp.</p>
           </form>
+
+          <!-- WhatsApp Handoff State -->
+          <div class="form-whatsapp-alert" role="status" style="display: none;">
+            <div class="whatsapp-alert-header">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 012.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 01-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.59c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.05-.39-2-1.24-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.44.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.36-.77-1.86-.2-.49-.41-.42-.56-.43h-.48c-.16 0-.44.06-.66.31-.23.25-.87.85-.87 2.08s.89 2.41 1.01 2.58c.13.17 1.75 2.67 4.24 3.75.59.26 1.05.41 1.41.53.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.3z"/></svg>
+              <h4>CONNECTING TO WHATSAPP...</h4>
+            </div>
+            <p>Your details have been pre-filled. <strong>Please tap "Send" in WhatsApp</strong> to deliver your message to Manjunath Batteries.</p>
+            <div class="whatsapp-alert-actions">
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-wa wa-direct-link" style="width: 100%; margin-bottom: 8px;">
+                TAP HERE IF WHATSAPP DIDN'T OPEN
+              </a>
+              <a href="tel:+918074015911" class="btn btn-call" data-track="call_click" data-cta-location="wa_alert_contact_fallback" data-cta-type="phone" style="width: 100%;">
+                OR CALL NOW: 80740 15911
+              </a>
+            </div>
+          </div>
 
           <div class="form-success-alert" role="alert">
             <h4>MESSAGE RECEIVED!</h4>

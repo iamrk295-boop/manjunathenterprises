@@ -92,14 +92,35 @@ assert(indexHtml.includes('class="form-error-alert"'), 'index.html has dedicated
 assert(contactHtml.includes('class="form-error-alert"'), 'contact-us.html has dedicated .form-error-alert container');
 assert(indexHtml.includes('CALL NOW: 80740 15911'), 'index.html error container includes working Call Now alternative');
 
-console.log('\n--- 6. Client-Side Script Review (js/main.js) ---');
-const mainJsPath = path.join(__dirname, '..', 'js', 'main.js');
-const mainJs = fs.readFileSync(mainJsPath, 'utf8');
-assert(!mainJs.includes('successBox.style.display = \'block\';\n        } else {\n          alert(\'Request received!'), 'main.js does NOT display successBox in catch block');
-assert(mainJs.includes('conversion_status: \'verified_lead\''), 'GTM form_submit conversion event marks verified_lead');
-assert(mainJs.includes("interaction_type") && mainJs.includes("'intent'"), 'Call/WhatsApp clicks marked as intent, distinguishing from completed calls');
-assert(mainJs.includes('btn-spinner'), 'main.js renders visual loading spinner on submission to prevent duplicate taps');
-assert(indexHtml.includes('pattern="[\\+]?[0-9\\s\\-]{10,15}"'), 'index.html phone input allows spaces and country code without browser tooltip rejection');
+console.log('\n--- 6. Phone Number Normalization & WhatsApp Form Flow (js/main.js) ---');
+const mainModule = require('../js/main.js');
+const normalizePhone = mainModule.normalizeIndianPhone;
+
+// Unit Tests for Phone Number Normalization
+assert(typeof normalizePhone === 'function', 'normalizeIndianPhone is exported and callable');
+assert(normalizePhone('8074015911') === '8074015911', 'Accepts standard 10-digit mobile (8074015911)');
+assert(normalizePhone('918074015911') === '8074015911', 'Normalizes 12-digit number with 91 prefix (918074015911)');
+assert(normalizePhone('+918074015911') === '8074015911', 'Normalizes number with +91 prefix (+918074015911)');
+assert(normalizePhone('+91 80740 15911') === '8074015911', 'Normalizes formatted number with +91 and spaces (+91 80740 15911)');
+assert(normalizePhone('08074015911') === '8074015911', 'Normalizes 11-digit number with leading zero STD trunk (08074015911)');
+assert(normalizePhone('9176543210') === '9176543210', 'Preserves genuine 10-digit number starting with 91 without stripping digits');
+assert(normalizePhone('1234567890') === null, 'Rejects invalid number starting with 1');
+assert(normalizePhone('80740') === null, 'Rejects incomplete number (< 10 digits)');
+assert(normalizePhone('80740159119999') === null, 'Rejects oversized number (> 12 digits)');
+assert(normalizePhone('abcdefghij') === null, 'Rejects non-numeric input');
+
+// WhatsApp Form Flow Assertions
+const mainJs = fs.readFileSync(path.join(__dirname, '..', 'js', 'main.js'), 'utf8');
+assert(mainJs.includes('BUSINESS_WHATSAPP_NUMBER = \'918074015911\''), 'Verified business WhatsApp number 918074015911 isolated in main.js');
+assert(mainJs.includes('https://wa.me/') && mainJs.includes('encodeURIComponent'), 'Constructs valid wa.me URL with encodeURIComponent');
+assert(mainJs.includes('Hello Manjunath Batteries, I need battery assistance.'), 'Message structure includes greeting "Hello Manjunath Batteries, I need battery assistance."');
+assert(mainJs.includes('My phone number: '), 'Message structure includes "My phone number: "');
+assert(mainJs.includes('Service required: '), 'Message structure includes "Service required: "');
+assert(mainJs.includes('Please contact me as soon as possible.'), 'Message structure includes closing "Please contact me as soon as possible."');
+assert(indexHtml.includes('class="form-whatsapp-alert"'), 'index.html has dedicated .form-whatsapp-alert container');
+assert(contactHtml.includes('class="form-whatsapp-alert"'), 'contact-us.html has dedicated .form-whatsapp-alert container');
+assert(mainJs.includes("interaction_type: 'intent'"), 'Marks intent without claiming completed WhatsApp message delivery');
+assert(!mainJs.includes("conversion_status: 'verified_lead'"), 'Does not claim verified lead before WhatsApp message is sent');
 
 console.log('\n--- 7. Targeted Header Branding & Top-Right Phone CTA Checks ---');
 assert(indexHtml.includes('class="brand-title">MANJUNATH <span>BATTERIES</span></span>'), 'index.html primary header brand is "MANJUNATH BATTERIES"');

@@ -280,46 +280,195 @@ a {
 
 /* ==========================================================================
    Mobile Header Responsive Design (320px – 600px)
-   Maintains MANJUNATH BATTERIES brand prominence, clean 2-line subtitle,
-   and prevents squeeze/collision with right-side CALL NOW button.
+   Features intentional 2-line brand badge ("MANJUNATH" over "BATTERIES")
+   unlocking horizontal space for a large, prominent, high-converting CALL NOW CTA.
    ========================================================================== */
 @media (max-width: 600px) {
   .site-header {
-    padding: 7px 0;
+    padding: 8px 0;
   }
 
   .header-container {
-    gap: 8px;
-    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 14px;
   }
 
   .brand-wrapper {
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-decoration: none;
   }
 
+  /* Two-line intentional brand lockup on mobile */
   .brand-title {
+    display: flex;
+    flex-direction: column;
     font-size: 19px;
-    letter-spacing: 0.3px;
-    line-height: 1.05;
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #ffffff;
+  }
+
+  .brand-title span {
+    display: block;
+    color: var(--amber-alert);
+    font-size: 19px;
+    margin-top: 1px;
+    letter-spacing: 0.8px;
   }
 
   .brand-subtitle {
+    font-family: var(--font-body);
     font-size: 8.5px;
-    letter-spacing: 0.2px;
-    line-height: 1.2;
-    margin-top: 2px;
+    font-weight: 600;
     color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    line-height: 1.2;
+    margin-top: 3px;
+    max-width: 175px;
     display: block;
-    max-width: 220px;
-    white-space: normal;
+  }
+
+  /* Visually prominent, high-converting CALL NOW CTA */
+  .header-phone-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+    color: #ffffff;
+    padding: 7px 13px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 14px rgba(225, 29, 72, 0.45);
+    text-decoration: none;
+    touch-action: manipulation;
+    flex-shrink: 0;
+    min-height: 44px;
+    transition: all var(--transition-fast);
+  }
+
+  .header-phone-btn:hover {
+    background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+    box-shadow: 0 6px 18px rgba(225, 29, 72, 0.6);
+    transform: translateY(-1px);
+  }
+
+  .header-phone-icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.35);
+    color: #ffffff;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .header-phone-icon-box svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .header-phone-content {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.05;
+    text-align: left;
+  }
+
+  .header-phone-action {
+    font-family: var(--font-display);
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #fef08a; /* High contrast gold/yellow for immediate recognition */
+  }
+
+  .header-phone-digits {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    white-space: nowrap;
+  }
+}
+
+/* 390px (iPhone 12/13/14/15/16) & 375px (iPhone SE 2/3 / iPhone Mini) */
+@media (max-width: 390px) {
+  .header-container {
+    gap: 10px;
+    padding: 0 12px;
+  }
+
+  .brand-title {
+    font-size: 18px;
+  }
+
+  .brand-title span {
+    font-size: 18px;
+  }
+
+  .brand-subtitle {
+    font-size: 8px;
+    max-width: 160px;
   }
 
   .header-phone-btn {
-    flex-shrink: 0;
+    padding: 6px 11px;
+    gap: 8px;
+  }
+
+  .header-phone-icon-box {
+    width: 28px;
+    height: 28px;
+  }
+
+  .header-phone-icon-box svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .header-phone-digits {
+    font-size: 15.5px;
+  }
+}
+
+/* 360px (Standard Android / Samsung Galaxy) */
+@media (max-width: 360px) {
+  .header-container {
+    gap: 8px;
+    padding: 0 10px;
+  }
+
+  .brand-title {
+    font-size: 17px;
+  }
+
+  .brand-title span {
+    font-size: 17px;
+  }
+
+  .brand-subtitle {
+    font-size: 7.5px;
+    max-width: 145px;
+  }
+
+  .header-phone-btn {
     padding: 6px 10px;
     gap: 7px;
-    min-height: 40px;
   }
 
   .header-phone-icon-box {
@@ -333,38 +482,38 @@ a {
   }
 
   .header-phone-action {
-    font-size: 9.5px;
-    letter-spacing: 0.5px;
+    font-size: 10px;
   }
 
   .header-phone-digits {
     font-size: 14.5px;
-    letter-spacing: 0.3px;
   }
 }
 
-/* 390px (iPhone 12/13/14/15/16) & 375px (iPhone SE/6/7/8/Mini) */
-@media (max-width: 390px) {
+/* 320px (iPhone SE 1st Gen & Ultra-Narrow Devices) */
+@media (max-width: 330px) {
   .header-container {
-    gap: 7px;
-    padding: 0 10px;
+    gap: 6px;
+    padding: 0 8px;
   }
 
   .brand-title {
-    font-size: 17.5px;
-    letter-spacing: 0.2px;
+    font-size: 16px;
+  }
+
+  .brand-title span {
+    font-size: 16px;
   }
 
   .brand-subtitle {
-    font-size: 8px;
-    letter-spacing: 0.15px;
-    line-height: 1.15;
-    max-width: 195px;
+    font-size: 7px;
+    max-width: 135px;
   }
 
   .header-phone-btn {
     padding: 5px 8px;
     gap: 6px;
+    min-height: 40px;
   }
 
   .header-phone-icon-box {
@@ -372,38 +521,9 @@ a {
     height: 24px;
   }
 
-  .header-phone-digits {
-    font-size: 13.5px;
-  }
-}
-
-/* 360px (Standard Android / Samsung Galaxy) */
-@media (max-width: 360px) {
-  .header-container {
-    gap: 6px;
-    padding: 0 8px;
-  }
-
-  .brand-title {
-    font-size: 16.5px;
-    letter-spacing: 0.2px;
-  }
-
-  .brand-subtitle {
-    font-size: 7.5px;
-    letter-spacing: 0.1px;
-    line-height: 1.12;
-    max-width: 175px;
-  }
-
-  .header-phone-btn {
-    padding: 5px 7px;
-    gap: 5px;
-  }
-
-  .header-phone-icon-box {
-    width: 22px;
-    height: 22px;
+  .header-phone-icon-box svg {
+    width: 13px;
+    height: 13px;
   }
 
   .header-phone-action {
@@ -411,46 +531,7 @@ a {
   }
 
   .header-phone-digits {
-    font-size: 13px;
-  }
-}
-
-/* 320px (iPhone SE 1st Gen & Ultra-Narrow Devices) */
-@media (max-width: 330px) {
-  .header-container {
-    gap: 4px;
-    padding: 0 6px;
-  }
-
-  .brand-title {
-    font-size: 15px;
-    letter-spacing: 0.1px;
-  }
-
-  .brand-subtitle {
-    font-size: 6.8px;
-    letter-spacing: 0;
-    line-height: 1.1;
-    max-width: 155px;
-  }
-
-  .header-phone-btn {
-    padding: 4px 6px;
-    gap: 4px;
-  }
-
-  .header-phone-icon-box {
-    display: none; /* Hide icon box at <=330px to guarantee zero squeeze */
-  }
-
-  .header-phone-action {
-    font-size: 8.5px;
-    letter-spacing: 0.3px;
-  }
-
-  .header-phone-digits {
-    font-size: 12.5px;
-    letter-spacing: 0.2px;
+    font-size: 13.5px;
   }
 }
 
@@ -969,6 +1050,53 @@ a {
   color: var(--text-secondary);
   line-height: 1.5;
   margin-bottom: 10px;
+}
+
+.form-whatsapp-alert {
+  display: none;
+  background: rgba(37, 211, 102, 0.12);
+  border: 1.5px solid var(--whatsapp-green);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  text-align: center;
+  color: #fff;
+  margin-top: 14px;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.18);
+}
+
+.whatsapp-alert-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: var(--whatsapp-green);
+}
+
+.whatsapp-alert-header h4 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--whatsapp-green);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.form-whatsapp-alert p {
+  font-size: 13.5px;
+  color: #e2e8f0;
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.form-whatsapp-alert p strong {
+  color: #ffffff;
+}
+
+.whatsapp-alert-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 /* ==========================================================================

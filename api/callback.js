@@ -184,21 +184,45 @@ module.exports = async function handler(req, res) {
 
     // 7. Input Validation & Sanitization
     const name = sanitizeText(body.name, 80);
-    const rawPhone = (body.phone || '').trim().replace(/[\s\-\(\)\+]/g, '');
+    const rawPhone = (body.phone || '').trim();
     const carModel = sanitizeText(body.car_model || body.message, 100);
     const service = sanitizeText(body.service, 60) || 'Emergency Battery Assistance';
 
-    // Normalize phone number (strip leading 0 or 91 country prefix if present)
-    let cleanPhone = rawPhone;
-    if (cleanPhone.startsWith('91') && cleanPhone.length === 12) {
-      cleanPhone = cleanPhone.substring(2);
-    } else if (cleanPhone.startsWith('0') && cleanPhone.length === 11) {
-      cleanPhone = cleanPhone.substring(1);
+    // Normalize and strictly validate Indian mobile number
+    function normalizeIndianPhone(input) {
+      if (!input || typeof input !== 'string') return null;
+      const trimmed = input.trim();
+      const hasPlus91 = /^\+91[\s\-]*/.test(trimmed);
+      const digits = trimmed.replace(/[\s\-\(\)\+\.]/g, '');
+      if (!/^\d+$/.test(digits)) return null;
+
+      let canonical = '';
+      if (hasPlus91) {
+        if (digits.startsWith('91') && digits.length === 12) {
+          canonical = digits.substring(2);
+        } else if (digits.length === 10) {
+          canonical = digits;
+        } else {
+          return null;
+        }
+      } else if (digits.length === 12 && digits.startsWith('91')) {
+        canonical = digits.substring(2);
+      } else if (digits.length === 11 && digits.startsWith('0')) {
+        canonical = digits.substring(1);
+      } else if (digits.length === 10) {
+        canonical = digits;
+      } else {
+        return null;
+      }
+
+      if (/^[6-9]\d{9}$/.test(canonical)) {
+        return canonical;
+      }
+      return null;
     }
 
-    // Strictly validate 10-digit Indian mobile number (must start with 6, 7, 8, or 9)
-    const indianMobileRegex = /^[6-9]\d{9}$/;
-    if (!cleanPhone || !indianMobileRegex.test(cleanPhone)) {
+    const cleanPhone = normalizeIndianPhone(rawPhone);
+    if (!cleanPhone) {
       return sendResponse(res, 400, {
         success: false,
         error: 'Invalid phone number. Please enter a valid 10-digit mobile number.'
