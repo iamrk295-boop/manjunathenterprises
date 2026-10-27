@@ -18,7 +18,8 @@
        - HOURS: 8:00 AM – 9:00 PM (Monday – Sunday)
        ========================================================================== -->
 
-  <!-- Google Tag Manager -->
+  <!-- GOOGLE TAG MANAGER (PENDING CONFIGURATION)
+       NOTE: Replace 'GTM-XXXXXXX' below with your live GTM Container ID before activating Google Ads -->
   <script>
     window.dataLayer = window.dataLayer || [];
     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -286,10 +287,19 @@
                 <p class="form-note">🔒 Your number is used solely to respond to your battery request.</p>
               </form>
 
-              <!-- Inline Success State -->
+              <!-- Inline Success State (Shown only on verified backend 200 OK) -->
               <div class="form-success-alert" role="alert">
                 <h4>REQUEST RECEIVED!</h4>
                 <p>We have received your callback request. A technician will contact your number shortly.</p>
+              </div>
+
+              <!-- Inline Error State (Honest failure state with Call Now alternative) -->
+              <div class="form-error-alert" role="alert">
+                <h4>COULD NOT DISPATCH ONLINE</h4>
+                <p class="error-text">We could not process your online request. Please call our technician directly for instant assistance.</p>
+                <a href="tel:+918074015911" class="btn btn-call" data-track="call_click" data-cta-location="form_error_alternative" data-cta-type="phone" style="width: 100%;">
+                  CALL NOW: 80740 15911
+                </a>
               </div>
             </div>
           </div>
