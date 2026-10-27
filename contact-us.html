@@ -182,12 +182,26 @@
 
             <div class="form-group">
               <label for="contact-phone" class="form-label">Mobile Number (Required)</label>
-              <input type="tel" id="contact-phone" name="phone" class="form-input" placeholder="Your 10-digit number" pattern="[0-9]{10}" required>
+              <input type="tel" 
+                     id="contact-phone" 
+                     name="phone" 
+                     class="form-input" 
+                     placeholder="Your 10-digit number" 
+                     pattern="[0-9]{10}" 
+                     inputmode="tel" 
+                     autocomplete="tel" 
+                     required>
             </div>
 
             <div class="form-group">
               <label for="contact-name" class="form-label">Full Name</label>
-              <input type="text" id="contact-name" name="name" class="form-input" placeholder="Your name">
+              <input type="text" 
+                     id="contact-name" 
+                     name="name" 
+                     class="form-input" 
+                     placeholder="Your name" 
+                     autocomplete="name" 
+                     autocapitalize="words">
             </div>
 
             <div class="form-group">

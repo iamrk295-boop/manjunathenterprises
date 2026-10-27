@@ -149,6 +149,7 @@
         <a href="#process" class="nav-link">3-Step Process</a>
         <a href="#areas" class="nav-link">Service Areas</a>
         <a href="#faq" class="nav-link">FAQ</a>
+        <a href="#callback" class="nav-link">Callback</a>
         <a href="contact-us.html" class="nav-link">Contact</a>
       </nav>
 
@@ -169,11 +170,12 @@
   </header>
 
   <main>
-    <!-- 1. HERO SECTION (Conversion Priority 1) -->
+    <!-- 1. MOBILE HERO — HIGHEST CONVERSION PRIORITY -->
     <section class="hero-section" aria-labelledby="hero-heading">
       <div class="container">
         <div class="hero-grid">
           <div class="hero-content">
+            <!-- Location Badge -->
             <div class="hero-pill">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
@@ -181,18 +183,18 @@
               <span>Whitefield • Belathur • Kadugodi • ITPL</span>
             </div>
 
-            <!-- Proposed copy: Headline -->
+            <!-- Headline -->
             <h1 id="hero-heading" class="hero-title">
               Car Battery Dead? <span>Get Battery Assistance Fast.</span>
             </h1>
 
-            <div class="hero-legal-subtitle">
-              JumpStart Experts — A Unit of Manjunath Enterprises
+            <div class="hero-supporting-headline">
+              Jump-Start &amp; Battery Replacement Assistance
             </div>
 
-            <!-- Proposed copy: Supporting text -->
+            <!-- Supporting text with verified service areas -->
             <p class="hero-value-prop">
-              Need a jump-start or replacement battery? Call <strong>Manjunath Batteries</strong> for assistance in <strong>Whitefield, Belathur, Kadugodi & ITPL</strong>. Speak directly with a technician to confirm assistance availability.
+              Need a jump-start or replacement battery? Call <strong>Manjunath Batteries</strong> for assistance in <strong>Whitefield, Belathur, Kadugodi &amp; ITPL</strong>. Speak directly with a technician to confirm assistance availability.
             </p>
 
             <!-- Conversion Action Row: Call Now as Primary, WhatsApp as Secondary -->
@@ -224,11 +226,17 @@
               </a>
             </div>
 
-            <!-- Trust Highlights (Factual & Verifiable) -->
+            <!-- Sub-CTA callback jump link -->
+            <div class="hero-sub-cta">
+              <span>Can't talk right now?</span>
+              <a href="#callback" class="hero-callback-link">Request a callback &darr;</a>
+            </div>
+
+            <!-- Factual Trust Indicators -->
             <div class="hero-trust-badges">
               <div class="trust-badge-item">
                 <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                <span>Local Whitefield & Belathur Hub</span>
+                <span>Local Whitefield &amp; Belathur Hub</span>
               </div>
               <div class="trust-badge-item">
                 <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
@@ -236,69 +244,50 @@
               </div>
               <div class="trust-badge-item">
                 <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                <span>Amaron & Exide Battery Stockist</span>
+                <span>Amaron &amp; Exide Battery Stockist</span>
               </div>
             </div>
           </div>
 
-          <!-- Secondary Customer Option: Callback Form (Non-blocking) -->
-          <div class="hero-form-col">
-            <div class="lead-form-card">
-              <div class="form-header">
-                <span class="form-badge">Request a Callback</span>
-                <h2 class="form-title">QUICK ASSISTANCE FORM</h2>
-                <p class="form-desc">In a noisy area or can't talk right now? Submit details below.</p>
+          <!-- Hero Right Column: Fast Dispatch Hub Card (Desktop/Tablet) -->
+          <div class="hero-dispatch-col">
+            <div class="hero-dispatch-card">
+              <div class="dispatch-card-header">
+                <span class="dispatch-live-badge"><span class="pulse-dot"></span> DISPATCH ACTIVE</span>
+                <h3 class="dispatch-card-title">RAPID BATTERY AID</h3>
+                <p class="dispatch-card-subtitle">Serving motorists stranded in East Bengaluru</p>
               </div>
 
-              <form name="callback-request" method="POST" action="/api/callback" data-netlify="true" netlify-honeypot="bot-field" class="emergency-lead-form">
-                <input type="hidden" name="form-name" value="callback-request">
-                <p class="sr-only">
-                  <label>Anti-bot honeypot: <input name="bot-field"></label>
-                </p>
+              <ul class="dispatch-checklist">
+                <li>
+                  <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  <div>
+                    <strong>Jump-Start &amp; Replacement</strong>
+                    <span>Technician brings jumper cables &amp; fresh batteries</span>
+                  </div>
+                </li>
+                <li>
+                  <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  <div>
+                    <strong>Local Hub Location</strong>
+                    <span>30 A, Belathur, Krishnarajapuram (560067)</span>
+                  </div>
+                </li>
+                <li>
+                  <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  <div>
+                    <strong>Direct Dispatch Line</strong>
+                    <span>Speak with a technician immediately</span>
+                  </div>
+                </li>
+              </ul>
 
-                <div class="form-group">
-                  <label for="form-phone" class="form-label">Phone Number (Required)</label>
-                  <input type="tel" id="form-phone" name="phone" class="form-input" placeholder="e.g. 98765 43210" pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number" required>
-                </div>
-
-                <div class="form-group">
-                  <label for="form-name" class="form-label">Your Name (Optional)</label>
-                  <input type="text" id="form-name" name="name" class="form-input" placeholder="Your name">
-                </div>
-
-                <div class="form-group">
-                  <label for="form-car" class="form-label">Vehicle Model</label>
-                  <input type="text" id="form-car" name="car_model" class="form-input" placeholder="e.g. Swift, Creta, City, i20" required>
-                </div>
-
-                <div class="form-group">
-                  <label for="form-service" class="form-label">Battery Issue</label>
-                  <select id="form-service" name="service" class="form-select" required>
-                    <option value="Battery Jump-Start" selected>Need a Battery Jump-Start</option>
-                    <option value="Battery Replacement">Need a Replacement Battery</option>
-                    <option value="Battery Diagnostics">Battery Health & Alternator Check</option>
-                  </select>
-                </div>
-
-                <button type="submit" class="btn btn-call form-submit-btn" data-track="form_submit" data-cta-location="hero_form">
-                  REQUEST CALLBACK
-                </button>
-
-                <p class="form-note">🔒 Your number is used solely to respond to your battery request.</p>
-              </form>
-
-              <!-- Inline Success State (Shown only on verified backend 200 OK) -->
-              <div class="form-success-alert" role="alert">
-                <h4>REQUEST RECEIVED!</h4>
-                <p>We have received your callback request. A technician will contact your number shortly.</p>
-              </div>
-
-              <!-- Inline Error State (Honest failure state with Call Now alternative) -->
-              <div class="form-error-alert" role="alert">
-                <h4>COULD NOT DISPATCH ONLINE</h4>
-                <p class="error-text">We could not process your online request. Please call our technician directly for instant assistance.</p>
-                <a href="tel:+918074015911" class="btn btn-call" data-track="call_click" data-cta-location="form_error_alternative" data-cta-type="phone" style="width: 100%;">
-                  CALL NOW: 80740 15911
+              <div class="dispatch-card-action">
+                <a href="tel:+918074015911" class="btn btn-call" style="width: 100%;" data-track="call_click" data-cta-location="hero_dispatch_card" data-cta-type="phone">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                  </svg>
+                  <span>CALL 80740 15911</span>
                 </a>
               </div>
             </div>
@@ -307,7 +296,77 @@
       </div>
     </section>
 
-    <!-- 2. THREE-STEP PROCESS (Section 8 Implementation) -->
+    <!-- 2. TWO CORE SERVICE SECTIONS (Brought immediately below Hero) -->
+    <section id="services" class="section section-dark" aria-labelledby="services-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-pill">Primary Services</span>
+          <h2 id="services-heading" class="section-title">AUTOMOTIVE BATTERY ASSISTANCE</h2>
+          <p class="section-subtitle">We focus exclusively on resolving car battery problems on-site.</p>
+        </div>
+
+        <!-- 2 Focused Primary Cards -->
+        <div class="services-grid">
+          
+          <!-- Service A: Battery Jump-Start -->
+          <article class="service-card primary-service">
+            <span class="service-badge">FASTEST AID</span>
+            <div class="service-icon-box" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+              </svg>
+            </div>
+            <h3 class="service-title">Need a Battery Jump-Start?</h3>
+            <p class="service-text">
+              Contact us to explain your vehicle's battery problem and confirm assistance availability.
+            </p>
+            <div class="service-card-cta">
+              <a href="tel:+918074015911" 
+                 class="btn btn-call" 
+                 style="width: 100%;" 
+                 data-track="call_click" 
+                 data-cta-location="service_a_jumpstart" 
+                 data-cta-type="phone">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                </svg>
+                <span>CALL FOR JUMP-START</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Service B: Battery Replacement -->
+          <article class="service-card replacement-service">
+            <span class="service-badge service-badge-amber">NEW BATTERY</span>
+            <div class="service-icon-box service-icon-box-amber" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM11 20v-5.5H9L13 7v5.5h2L11 20z"/>
+              </svg>
+            </div>
+            <h3 class="service-title">Need a Replacement Battery?</h3>
+            <p class="service-text">
+              Ask about compatible batteries, available options, and pricing for your vehicle.
+            </p>
+            <div class="service-card-cta">
+              <a href="tel:+918074015911" 
+                 class="btn btn-amber" 
+                 style="width: 100%;" 
+                 data-track="call_click" 
+                 data-cta-location="service_b_replacement" 
+                 data-cta-type="phone">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                </svg>
+                <span>CALL FOR REPLACEMENT</span>
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. THREE-STEP PROCESS (Section 8 Implementation) -->
     <section id="process" class="emergency-strip" aria-labelledby="process-heading">
       <div class="container">
         <div class="emergency-header">
@@ -339,75 +398,6 @@
               <p>We'll confirm availability and explain the next steps.</p>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. FOCUSED SERVICE SECTIONS (Section 6 Implementation: Service A & Service B) -->
-    <section id="services" class="section section-dark" aria-labelledby="services-heading">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-pill">Primary Services</span>
-          <h2 id="services-heading" class="section-title">AUTOMOTIVE BATTERY ASSISTANCE</h2>
-          <p class="section-subtitle">We focus exclusively on resolving car battery problems on-site.</p>
-        </div>
-
-        <!-- 2 Focused Primary Cards -->
-        <div class="services-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); max-width: 900px; margin: 0 auto;">
-          
-          <!-- Service A: Battery Jump-Start -->
-          <article class="service-card primary-service">
-            <span class="service-badge">FASTEST AID</span>
-            <div class="service-icon-box" aria-hidden="true">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
-              </svg>
-            </div>
-            <h3 class="service-title">Need a Battery Jump-Start?</h3>
-            <p class="service-text">
-              Contact us to explain your vehicle's battery problem and confirm assistance availability.
-            </p>
-            <div style="margin-top: 24px;">
-              <a href="tel:+918074015911" 
-                 class="btn btn-call" 
-                 style="width: 100%;" 
-                 data-track="call_click" 
-                 data-cta-location="service_a_jumpstart" 
-                 data-cta-type="phone">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                </svg>
-                <span>CALL FOR JUMP-START</span>
-              </a>
-            </div>
-          </article>
-
-          <!-- Service B: Battery Replacement -->
-          <article class="service-card">
-            <div class="service-icon-box" aria-hidden="true">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM11 20v-5.5H9L13 7v5.5h2L11 20z"/>
-              </svg>
-            </div>
-            <h3 class="service-title">Need a Replacement Battery?</h3>
-            <p class="service-text">
-              Contact us to check battery compatibility, available options, and pricing for your vehicle.
-            </p>
-            <div style="margin-top: 24px;">
-              <a href="tel:+918074015911" 
-                 class="btn btn-amber" 
-                 style="width: 100%;" 
-                 data-track="call_click" 
-                 data-cta-location="service_b_replacement" 
-                 data-cta-type="phone">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                </svg>
-                <span>CALL FOR REPLACEMENT</span>
-              </a>
-            </div>
-          </article>
-
         </div>
       </div>
     </section>
@@ -449,10 +439,10 @@
             <p class="service-text">Fastest response times are available across these core areas:</p>
 
             <div class="areas-chips-container">
-              <span class="area-chip" style="border-color: var(--amber-alert); color: var(--amber-alert);">★ Whitefield</span>
-              <span class="area-chip" style="border-color: var(--amber-alert); color: var(--amber-alert);">★ Belathur</span>
-              <span class="area-chip" style="border-color: var(--amber-alert); color: var(--amber-alert);">★ Kadugodi</span>
-              <span class="area-chip" style="border-color: var(--amber-alert); color: var(--amber-alert);">★ ITPL</span>
+              <span class="area-chip area-chip-core">★ Whitefield</span>
+              <span class="area-chip area-chip-core">★ Belathur</span>
+              <span class="area-chip area-chip-core">★ Kadugodi</span>
+              <span class="area-chip area-chip-core">★ ITPL</span>
               <span class="area-chip">Hope Farm</span>
               <span class="area-chip">Brookefield</span>
               <span class="area-chip">Hoodi</span>
@@ -463,7 +453,7 @@
               <li class="location-item">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
                 <div>
-                  <strong>Store & Hub Address:</strong>
+                  <strong>Store &amp; Hub Address:</strong>
                   30 A, Belathur, Krishnarajapuram, Bengaluru, Karnataka 560067
                 </div>
               </li>
@@ -567,7 +557,104 @@
       </div>
     </section>
 
-    <!-- 7. FINAL CONVERSION CTA -->
+    <!-- 7. SECONDARY CONVERSION: QUICK CALLBACK FORM (Cleanly separated from Hero) -->
+    <section id="callback" class="section section-dark" aria-labelledby="callback-heading">
+      <div class="container">
+        <div class="callback-section-wrapper">
+          <div class="lead-form-card">
+            <div class="form-header">
+              <span class="form-badge">Secondary Option</span>
+              <h2 id="callback-heading" class="form-title">REQUEST A CALLBACK</h2>
+              <p class="form-desc">In a noisy area or can't talk right now? Submit details below and our dispatch technician will call you back.</p>
+            </div>
+
+            <form name="callback-request" method="POST" action="/api/callback" data-netlify="true" netlify-honeypot="bot-field" class="emergency-lead-form">
+              <input type="hidden" name="form-name" value="callback-request">
+              <p class="sr-only">
+                <label>Anti-bot honeypot: <input name="bot-field"></label>
+              </p>
+
+              <div class="form-group">
+                <label for="form-phone" class="form-label">Phone Number (Required)</label>
+                <input type="tel" 
+                       id="form-phone" 
+                       name="phone" 
+                       class="form-input" 
+                       placeholder="10-digit mobile (e.g. 98765 43210)" 
+                       pattern="[0-9]{10}" 
+                       inputmode="tel" 
+                       autocomplete="tel" 
+                       title="Please enter a valid 10-digit mobile number" 
+                       required>
+              </div>
+
+              <div class="form-group">
+                <label for="form-name" class="form-label">Your Name (Optional)</label>
+                <input type="text" 
+                       id="form-name" 
+                       name="name" 
+                       class="form-input" 
+                       placeholder="Your name" 
+                       autocomplete="name" 
+                       autocapitalize="words">
+              </div>
+
+              <div class="form-group">
+                <label for="form-car" class="form-label">Vehicle Model (Required)</label>
+                <input type="text" 
+                       id="form-car" 
+                       name="car_model" 
+                       class="form-input" 
+                       placeholder="e.g. Swift, Creta, City, i20" 
+                       autocomplete="off" 
+                       autocapitalize="words" 
+                       required>
+              </div>
+
+              <div class="form-group">
+                <label for="form-service" class="form-label">Battery Problem</label>
+                <select id="form-service" name="service" class="form-select" required>
+                  <option value="Battery Jump-Start" selected>Need a Battery Jump-Start</option>
+                  <option value="Battery Replacement">Need a Replacement Battery</option>
+                  <option value="Battery Diagnostics">Battery Health &amp; Alternator Check</option>
+                </select>
+              </div>
+
+              <button type="submit" class="btn btn-call form-submit-btn" data-track="form_submit" data-cta-location="callback_form">
+                REQUEST CALLBACK
+              </button>
+
+              <p class="form-note">🔒 Your number is used solely to respond to your battery request.</p>
+
+              <!-- Immediate Call Fallback Prompt -->
+              <div class="form-direct-call-prompt">
+                <span>Need urgent assistance?</span>
+                <a href="tel:+918074015911" class="form-direct-call-link" data-track="call_click" data-cta-location="form_direct_prompt" data-cta-type="phone">
+                  Call Dispatch: 80740 15911
+                </a>
+              </div>
+            </form>
+
+            <!-- Inline Success State (Shown only on verified backend 200 OK) -->
+            <div class="form-success-alert" role="alert">
+              <h4>REQUEST RECEIVED!</h4>
+              <p>We have received your callback request. A technician will contact your number shortly.</p>
+            </div>
+
+            <!-- Inline Error State (Honest failure state with Call Now alternative) -->
+            <div class="form-error-alert" role="alert">
+              <h4>COULD NOT DISPATCH ONLINE</h4>
+              <p class="error-text">We could not process your online request. Please call our technician directly for instant assistance.</p>
+              <a href="tel:+918074015911" class="btn btn-call" data-track="call_click" data-cta-location="form_error_alternative" data-cta-type="phone" style="width: 100%;">
+                CALL NOW: 80740 15911
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. FINAL CONVERSION CTA -->
     <section class="final-cta-section" aria-labelledby="final-cta-heading">
       <div class="container">
         <div class="final-cta-box">
@@ -575,7 +662,7 @@
             CAR BATTERY DEAD? <span>CALL US FOR ASSISTANCE.</span>
           </h2>
           <p class="final-cta-desc">
-            Speak directly with our local team in Whitefield & Belathur to confirm assistance availability.
+            Speak directly with our local team in Whitefield &amp; Belathur to confirm assistance availability.
           </p>
           <div class="final-cta-buttons">
             <a href="tel:+918074015911" 
@@ -626,6 +713,7 @@
             <li><a href="#services">Battery Services</a></li>
             <li><a href="#process">3-Step Process</a></li>
             <li><a href="#areas">Service Areas</a></li>
+            <li><a href="#callback">Request Callback</a></li>
             <li><a href="contact-us.html">Contact Us</a></li>
             <li><a href="privacy-policy.html">Privacy Policy</a></li>
           </ul>

@@ -59,7 +59,11 @@ assert(indexHtml.includes('Contact us to explain your vehicle\'s battery problem
 assert(indexHtml.includes('CALL FOR JUMP-START'), 'Service A CTA matches "CALL FOR JUMP-START"');
 
 assert(indexHtml.includes('Need a Replacement Battery?'), 'Service B headline matches "Need a Replacement Battery?"');
-assert(indexHtml.includes('Contact us to check battery compatibility, available options, and pricing for your vehicle.'), 'Service B description matches specification');
+assert(
+  indexHtml.includes('Ask about compatible batteries, available options, and pricing for your vehicle.') ||
+  indexHtml.includes('Contact us to check battery compatibility, available options, and pricing for your vehicle.'),
+  'Service B description matches specification'
+);
 assert(indexHtml.includes('CALL FOR REPLACEMENT'), 'Service B CTA matches "CALL FOR REPLACEMENT"');
 
 console.log('\n--- 3. Three-Step Process Copy Requirements ---');

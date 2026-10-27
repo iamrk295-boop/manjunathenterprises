@@ -126,30 +126,45 @@ All interactions push structured objects to `window.dataLayer`:
 
 ---
 
-## 6. Automated Test Suite (Priority 5)
+## 6. Mobile Conversion Optimization & Architecture
 
-Run the test suite locally at any time:
+### High-Impact UX Improvements:
+1. **Uncluttered Mobile First Screen**:
+   - The heavy callback form has been moved out of the mobile hero into a dedicated `#callback` section.
+   - On mobile screens (320px–430px), visitors immediately see the emergency location badge, the clear headline ("Car Battery Dead? Get Battery Assistance Fast."), supporting copy, and dominant **CALL NOW** & **WHATSAPP US** action buttons.
+   - Compact trust badges ("Local Whitefield & Belathur Hub", "On-Site Diagnostics", "Amaron & Exide Stockist") build instant credibility without vertical bloat.
+2. **Priority Section Flow (Reduced Scrolling)**:
+   - **Hero & Contact Buttons** (Immediate call/WhatsApp access).
+   - **Two Core Services** (Jump-Start & Battery Replacement brought directly below hero).
+   - **How It Works** (3-step emergency process).
+   - **Stocked Brands** (Amaron, Exide, Livguard, SF Sonic with retailer disclaimer).
+   - **Service Areas & Map** (Core coverage chips & Belathur hub map).
+   - **Concise FAQs** (5 common questions with tap accordion).
+   - **Secondary Callback Form** (Streamlined with mobile keyboard input types and Call Now fallback).
+   - **Final Conversion CTA** (Closing direct call and WhatsApp).
+3. **Mobile Sticky Action Bar**:
+   - Dominant **CALL NOW** button (~60% width) paired with accessible **WHATSAPP US** button.
+   - Strict `env(safe-area-inset-bottom)` integration and dynamic body padding to prevent overlapping page content.
+   - Dedicated media query for compact 320px screens (iPhone SE 1st gen).
+4. **Mobile Input Usability**:
+   - Form inputs set to 16px to prevent iOS Safari automatic viewport zoom.
+   - `inputmode="tel"` and `autocomplete="tel"` for rapid mobile numeric entry.
+   - `touch-action: manipulation` applied to interactive elements to eliminate the 300ms tap delay.
+
+---
+
+## 7. Automated Test Suite
+
+Run the full verification suites locally:
 ```bash
+# 1. Functional, Security & Tracking Verification (40 tests)
 node scripts/verify_site.js
+
+# 2. Mobile Responsiveness & Touch Target Audit (16 tests)
+node scripts/verify_responsive.js
 ```
 
-### Test Coverage (40 / 40 Tests Passing):
-- **Hero & CTAs (7 tests)**: Headline, supporting text, primary "CALL NOW", secondary "WHATSAPP US", phone & WhatsApp links.
-- **Service Section (6 tests)**: Service A ("Need a Battery Jump-Start?"), Service B ("Need a Replacement Battery?"), and their respective CTAs.
-- **3-Step Process (6 tests)**: Step 1 (Call Us), Step 2 (Share Location), Step 3 (Confirm Service).
-- **Mobile Sticky Bar (2 tests)**: Presence and dataLayer attributes.
-- **Dedicated Pages & Address (5 tests)**: Full address on contact page, working phone link, dedicated privacy policy, and error alert containers.
-- **Client Script Review (3 tests)**: Verified no false success in catch block, verified lead tagging, and click intent classification.
-- **Backend API & Security (11 tests)**:
-  - Missing `LEAD_WEBHOOK_URL` returns HTTP 503 (fail closed).
-  - Invalid phone (<10 digits) returns HTTP 400.
-  - Honeypot bot submission silently discarded.
-  - Untrusted origin blocked with HTTP 403.
-  - Oversized payload (>10KB) rejected with HTTP 413.
-  - Webhook failure returns HTTP 502.
-  - Webhook timeout returns HTTP 504.
-  - Successful webhook delivery returns HTTP 200.
-  - Rate limiter blocks requests exceeding 5 per 10 mins with HTTP 429.
+### Total Verified Test Cases: 56 / 56 Passing
 
 ---
 
