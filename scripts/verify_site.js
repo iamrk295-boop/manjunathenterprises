@@ -77,7 +77,12 @@ async function runApiTests() {
       setHeader(k, v) { this.headers[k] = v; },
       status(code) { this.statusCode = code; return this; },
       json(data) { this.body = data; return this; },
-      end() { return this; }
+      end(data) {
+        if (data && typeof data === 'string') {
+          try { this.body = JSON.parse(data); } catch(e) { this.body = data; }
+        }
+        return this;
+      }
     };
   }
 

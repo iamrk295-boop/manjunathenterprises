@@ -1,29 +1,55 @@
 /**
  * Vercel Serverless Function — Lead Callback & Contact Handler
  * Validates lead submissions, filters spam bots via honeypot, and returns JSON.
+ * Compatible with raw Node.js HTTP and Vercel Serverless runtimes.
  */
 
-module.exports = async function handler(req, res) {
-  // Set CORS and security headers
+function sendJson(res, statusCode, data) {
+  res.statusCode = statusCode;
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('X-Content-Type-Options', 'nosniff');
+  return res.end(JSON.stringify(data));
+}
 
+module.exports = async function handler(req, res) {
   // Handle preflight
   if (req.method === 'OPTIONS') {
-    return res.status(200).end();
+    res.statusCode = 200;
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    return res.end();
   }
 
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed. Use POST.' });
+    return sendJson(res, 405, { error: 'Method not allowed. Use POST.' });
   }
 
   try {
     let body = req.body;
 
-    // Handle string body if not parsed automatically
-    if (typeof body === 'string') {
+    // In raw Node.js HTTP, collect buffer if req.body is undefined
+    if (!body) {
+      body = await new Promise((resolve) => {
+        let raw = '';
+        req.on('data', chunk => { raw += chunk; });
+        req.on('end', () => {
+          try {
+            resolve(JSON.parse(raw));
+          } catch (e) {
+            try {
+              const params = new URLSearchParams(raw);
+              resolve(Object.fromEntries(params.entries()));
+            } catch (err2) {
+              resolve({});
+            }
+          }
+        });
+      });
+    } else if (typeof body === 'string') {
       try {
         body = JSON.parse(body);
       } catch (e) {
@@ -43,14 +69,13 @@ module.exports = async function handler(req, res) {
     // 1. Honeypot check: If bot-field is filled, silently discard
     if (botField) {
       console.warn('[SPAM DETECTED] Honeypot triggered.');
-      return res.status(200).json({ success: true, message: 'Received' });
+      return sendJson(res, 200, { success: true, message: 'Received' });
     }
 
     // 2. Validate essential contact field: Phone number
-    // Must be valid 10-digit Indian phone number (or 12-digit with country code 91)
     const phoneRegex = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$/;
     if (!phone || !phoneRegex.test(phone)) {
-      return res.status(400).json({
+      return sendJson(res, 400, {
         error: 'Invalid phone number. Please enter a valid 10-digit mobile number.'
       });
     }
@@ -59,7 +84,7 @@ module.exports = async function handler(req, res) {
     const maskedPhone = phone.slice(0, 3) + '****' + phone.slice(-3);
     console.log(`[LEAD RECEIVED] ${new Date().toISOString()} | Service: ${service} | Phone: ${maskedPhone} | Model: ${carModel}`);
 
-    // If an external webhook (e.g. Telegram / WhatsApp / CRM) is configured via env variable:
+    // If an external webhook is configured:
     if (process.env.LEAD_WEBHOOK_URL) {
       try {
         await fetch(process.env.LEAD_WEBHOOK_URL, {
@@ -78,13 +103,13 @@ module.exports = async function handler(req, res) {
       }
     }
 
-    return res.status(200).json({
+    return sendJson(res, 200, {
       success: true,
       message: 'Callback request received. A technician will call you shortly.'
     });
 
   } catch (err) {
     console.error('Callback handler error:', err);
-    return res.status(500).json({ error: 'Internal server error processing request.' });
+    return sendJson(res, 500, { error: 'Internal server error processing request.' });
   }
 };
