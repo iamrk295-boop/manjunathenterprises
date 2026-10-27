@@ -212,23 +212,125 @@ a {
 .header-phone-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   background-color: var(--red-alert);
   color: #fff;
-  font-family: var(--font-display);
-  font-size: 17px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 8px 18px;
+  padding: 6px 16px;
   border-radius: var(--radius-sm);
-  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  transition: all var(--transition-fast);
   box-shadow: 0 4px 14px var(--red-glow);
+  text-decoration: none;
+  touch-action: manipulation;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .header-phone-btn:hover {
   background-color: var(--red-hover);
   transform: translateY(-1px);
+  box-shadow: 0 6px 18px var(--red-glow);
+}
+
+.header-phone-btn:focus-visible {
+  outline: 3px solid var(--amber-alert);
+  outline-offset: 2px;
+}
+
+.header-phone-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.25);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.header-phone-content {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  text-align: left;
+}
+
+.header-phone-action {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #fef08a; /* High contrast gold/yellow for instant readability */
+}
+
+.header-phone-digits {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+}
+
+/* Mobile Header Refinement for 320px–600px */
+@media (max-width: 600px) {
+  .site-header {
+    padding: 8px 0;
+  }
+
+  .header-container {
+    gap: 8px;
+  }
+
+  .brand-title {
+    font-size: 20px;
+  }
+
+  .brand-subtitle {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  .header-phone-btn {
+    padding: 6px 10px;
+    gap: 8px;
+  }
+
+  .header-phone-icon-box {
+    width: 26px;
+    height: 26px;
+  }
+
+  .header-phone-icon-box svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .header-phone-action {
+    font-size: 10px;
+  }
+
+  .header-phone-digits {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 375px) {
+  .brand-title {
+    font-size: 18px;
+  }
+
+  .brand-subtitle {
+    display: none; /* Hide subtitle on ultra-narrow 320px–375px screens to ensure 1-line header */
+  }
+
+  .header-phone-btn {
+    padding: 5px 8px;
+    gap: 6px;
+  }
+
+  .header-phone-digits {
+    font-size: 14px;
+  }
 }
 
 /* ==========================================================================

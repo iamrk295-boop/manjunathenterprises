@@ -99,7 +99,21 @@ assert(!mainJs.includes('successBox.style.display = \'block\';\n        } else {
 assert(mainJs.includes('conversion_status: \'verified_lead\''), 'GTM form_submit conversion event marks verified_lead');
 assert(mainJs.includes("interaction_type") && mainJs.includes("'intent'"), 'Call/WhatsApp clicks marked as intent, distinguishing from completed calls');
 
-console.log('\n--- 7. API Callback Security & Reliability Tests (/api/callback) ---');
+console.log('\n--- 7. Targeted Header Branding & Top-Right Phone CTA Checks ---');
+assert(indexHtml.includes('class="brand-title">MANJUNATH <span>BATTERIES</span></span>'), 'index.html primary header brand is "MANJUNATH BATTERIES"');
+assert(indexHtml.includes('Car Battery Jump-Start &amp; Replacement Assistance') || indexHtml.includes('Car Battery Jump-Start & Replacement Assistance'), 'index.html brand descriptor matches "Car Battery Jump-Start & Replacement Assistance"');
+assert(indexHtml.includes('class="header-phone-btn"'), 'index.html header phone has dedicated .header-phone-btn conversion container');
+assert(indexHtml.includes('class="header-phone-action">CALL NOW</span>'), 'index.html header phone has clear "CALL NOW" action tag');
+assert(indexHtml.includes('class="header-phone-digits">80740 15911</span>'), 'index.html header phone has legible digits 80740 15911');
+assert(contactHtml.includes('class="brand-title">MANJUNATH <span>BATTERIES</span></span>'), 'contact-us.html header brand is "MANJUNATH BATTERIES"');
+assert(contactHtml.includes('class="header-phone-action">CALL NOW</span>'), 'contact-us.html header phone has "CALL NOW"');
+
+const privacyHtml = fs.readFileSync(privacyPath, 'utf8');
+assert(privacyHtml.includes('class="brand-title">MANJUNATH <span>BATTERIES</span></span>'), 'privacy-policy.html header brand is "MANJUNATH BATTERIES"');
+assert(privacyHtml.includes('class="header-phone-action">CALL NOW</span>'), 'privacy-policy.html header phone has "CALL NOW"');
+assert(indexHtml.includes('Manjunath Enterprises') && indexHtml.includes('operating trade name of Manjunath Enterprises'), 'Legal entity Manjunath Enterprises preserved in footer disclaimer');
+
+console.log('\n--- 8. API Callback Security & Reliability Tests (/api/callback) ---');
 
 function createMockRes() {
   return {
