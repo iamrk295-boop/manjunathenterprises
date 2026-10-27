@@ -189,7 +189,7 @@
           <form name="contact-page" method="POST" action="/api/callback" data-netlify="true" netlify-honeypot="bot-field" class="emergency-lead-form">
             <input type="hidden" name="form-name" value="contact-page">
             <p class="sr-only">
-              <label>Anti-bot honeypot: <input name="bot-field"></label>
+              <label>Anti-bot honeypot: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
             </p>
 
             <div class="form-group">
@@ -199,7 +199,7 @@
                      name="phone" 
                      class="form-input" 
                      placeholder="Your 10-digit number" 
-                     pattern="[0-9]{10}" 
+                     pattern="[\+]?[0-9\s\-]{10,15}" 
                      inputmode="tel" 
                      autocomplete="tel" 
                      required>

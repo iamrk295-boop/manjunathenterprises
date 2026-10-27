@@ -98,6 +98,8 @@ const mainJs = fs.readFileSync(mainJsPath, 'utf8');
 assert(!mainJs.includes('successBox.style.display = \'block\';\n        } else {\n          alert(\'Request received!'), 'main.js does NOT display successBox in catch block');
 assert(mainJs.includes('conversion_status: \'verified_lead\''), 'GTM form_submit conversion event marks verified_lead');
 assert(mainJs.includes("interaction_type") && mainJs.includes("'intent'"), 'Call/WhatsApp clicks marked as intent, distinguishing from completed calls');
+assert(mainJs.includes('btn-spinner'), 'main.js renders visual loading spinner on submission to prevent duplicate taps');
+assert(indexHtml.includes('pattern="[\\+]?[0-9\\s\\-]{10,15}"'), 'index.html phone input allows spaces and country code without browser tooltip rejection');
 
 console.log('\n--- 7. Targeted Header Branding & Top-Right Phone CTA Checks ---');
 assert(indexHtml.includes('class="brand-title">MANJUNATH <span>BATTERIES</span></span>'), 'index.html primary header brand is "MANJUNATH BATTERIES"');
@@ -246,12 +248,16 @@ async function runApiTests() {
       'API reports HTTP 504 Gateway Timeout when webhook exceeds timeout limit'
     );
 
-    // Test 7h: Successful Webhook Delivery -> 200 OK
-    global.fetch = async () => ({
-      ok: true,
-      status: 200,
-      json: async () => ({ status: 'delivered' })
-    });
+    // Test 7h: Successful Webhook Delivery -> 200 OK & Discord/Slack universal compatibility
+    let sentPayload = null;
+    global.fetch = async (url, opts) => {
+      sentPayload = JSON.parse(opts.body);
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({ status: 'delivered' })
+      };
+    };
     const reqSuccess = {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -262,6 +268,10 @@ async function runApiTests() {
     assert(
       resSuccess.statusCode === 200 && resSuccess.body.success === true,
       'API returns HTTP 200 OK only when lead webhook confirms delivery'
+    );
+    assert(
+      sentPayload && sentPayload.content && sentPayload.text && sentPayload.phone === '9876543210',
+      'API webhook payload provides universal Discord content, Slack text, and CRM phone data'
     );
 
     // Test 7i: Rate limiting (send 5 requests from same IP -> 6th returns 429)

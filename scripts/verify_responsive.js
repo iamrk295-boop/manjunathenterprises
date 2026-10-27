@@ -58,6 +58,15 @@ check(css.includes('grid-template-columns: 1.45fr 1fr') || css.includes('grid-te
 // 6. Section Scroll Margin for Fixed Headers
 check(css.includes('scroll-margin-top: 76px'), 'Sections have scroll-margin-top to prevent header obscuring content');
 
+// 7. Mobile Header Hierarchy & Squeeze Prevention (320px - 430px)
+check(css.includes('@media (max-width: 600px)'), 'CSS contains fluid mobile query for <= 600px');
+check(css.includes('@media (max-width: 390px)'), 'CSS contains query for 375px/390px (iPhone 12-16 & SE)');
+check(css.includes('@media (max-width: 360px)'), 'CSS contains query for 360px (Standard Android)');
+check(css.includes('@media (max-width: 330px)'), 'CSS contains query for 320px (Ultra-narrow viewports)');
+check(css.includes('.brand-wrapper') && css.includes('min-width: 0'), 'Brand wrapper has min-width: 0 to prevent flexbox container blowout');
+check(css.includes('.header-phone-btn') && css.includes('flex-shrink: 0'), 'Header phone CTA has flex-shrink: 0 to prevent button squeezing');
+check(css.includes('.btn-spinner'), 'Button loading spinner is styled for duplicate submission prevention');
+
 console.log(`\n======================================================`);
 console.log(`RESPONSIVE AUDIT SUMMARY: ${passed} / ${total} passed`);
 console.log(`======================================================\n`);

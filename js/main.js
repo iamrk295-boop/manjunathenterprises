@@ -88,28 +88,40 @@
       if (errorBox) errorBox.style.display = 'none';
       if (successBox) successBox.style.display = 'none';
 
-      // 1. Strict Client-side Phone Validation
+      // 1. Strict Client-side Phone Validation (Non-blocking inline feedback)
       var phoneInput = form.querySelector('input[type="tel"]');
+      var cleanPhone = '';
       if (phoneInput) {
         var rawPhone = phoneInput.value.trim().replace(/[\s\-\(\)\+]/g, '');
         if (rawPhone.startsWith('91') && rawPhone.length === 12) {
-          rawPhone = rawPhone.substring(2);
+          cleanPhone = rawPhone.substring(2);
         } else if (rawPhone.startsWith('0') && rawPhone.length === 11) {
-          rawPhone = rawPhone.substring(1);
+          cleanPhone = rawPhone.substring(1);
+        } else {
+          cleanPhone = rawPhone;
         }
 
         var indianMobileRegex = /^[6-9]\d{9}$/;
-        if (!rawPhone || !indianMobileRegex.test(rawPhone)) {
-          alert('Please enter a valid 10-digit Indian mobile number (e.g., 9876543210).');
+        if (!cleanPhone || !indianMobileRegex.test(cleanPhone)) {
+          var validationMsg = 'Please enter a valid 10-digit mobile number (e.g., 98765 43210).';
+          if (errorTextEl) {
+            errorTextEl.textContent = validationMsg;
+          }
+          if (errorBox) {
+            errorBox.style.display = 'block';
+            errorBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          } else {
+            alert(validationMsg);
+          }
           phoneInput.focus();
           return;
         }
       }
 
-      // 2. Prevent Duplicate Submissions
+      // 2. Prevent Duplicate Submissions with Visual Loading State
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerHTML = 'Connecting to Dispatch...';
+        submitBtn.innerHTML = '<span class="btn-spinner"></span> Connecting to Dispatch...';
       }
 
       var formData = new FormData(form);
@@ -117,6 +129,11 @@
       formData.forEach(function (val, key) {
         formObj[key] = val;
       });
+
+      // Pass normalized clean phone number
+      if (cleanPhone) {
+        formObj.phone = cleanPhone;
+      }
 
       // Submit to /api/callback
       fetch('/api/callback', {
@@ -144,19 +161,21 @@
             form.style.display = 'none';
             if (successBox) {
               successBox.style.display = 'block';
+              successBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
           } else {
             // Backend rejected or webhook delivery failed (e.g. 503 unconfigured or 502 webhook error)
-            // DO NOT display success! Show honest error and keep form recoverable.
+            // DO NOT display success! Show honest customer-friendly error and keep form recoverable.
             var errorMessage = (result.data && result.data.error)
               ? result.data.error
-              : 'Unable to process online dispatch at this moment. Please tap to call directly for immediate assistance.';
+              : 'Unable to process online dispatch at this moment. Please tap below to call directly for immediate assistance.';
 
             if (errorTextEl) {
               errorTextEl.textContent = errorMessage;
             }
             if (errorBox) {
               errorBox.style.display = 'block';
+              errorBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             } else {
               alert(errorMessage);
             }
@@ -171,13 +190,14 @@
         .catch(function (networkErr) {
           console.warn('[NETWORK_FAILURE] Lead submission network error:', networkErr);
           // Network failure: DO NOT show success, DO NOT push GTM conversion
-          var netErrorMessage = 'Network connection issue. For immediate battery assistance, please tap to call our dispatch team directly.';
+          var netErrorMessage = 'Network connection issue. For immediate battery assistance, please tap below to call our dispatch team directly.';
 
           if (errorTextEl) {
             errorTextEl.textContent = netErrorMessage;
           }
           if (errorBox) {
             errorBox.style.display = 'block';
+            errorBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           } else {
             alert(netErrorMessage);
           }

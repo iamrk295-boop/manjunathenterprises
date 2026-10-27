@@ -215,7 +215,7 @@ module.exports = async function handler(req, res) {
       console.error('[DISPATCH_ERROR] LEAD_WEBHOOK_URL is not configured in environment variables.');
       return sendResponse(res, 503, {
         success: false,
-        error: 'Lead dispatch notification is currently unconfigured. Please call +91 80740 15911 directly for immediate assistance.'
+        error: 'Online dispatch is currently unavailable. Please call +91 80740 15911 directly for immediate assistance.'
       }, origin);
     }
 
@@ -238,13 +238,22 @@ module.exports = async function handler(req, res) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 5000);
 
+    const notificationSummary = `🚨 NEW BATTERY LEAD: ${service}\n📞 Phone: ${cleanPhone}\n👤 Name: ${name || 'Not provided'}\n🚗 Vehicle: ${carModel || 'Not provided'}\n🌐 Source: manjunathabatteries.in`;
+
     const leadPayload = {
+      // Standard Generic & CRM Payload fields
       timestamp: new Date().toISOString(),
       source: 'manjunathabatteries.in',
       name: name || 'Not provided',
       phone: cleanPhone,
       carModel: carModel || 'Not provided',
-      service: service
+      service: service,
+
+      // Discord Webhook compatibility
+      content: notificationSummary,
+
+      // Slack Incoming Webhook compatibility
+      text: notificationSummary
     };
 
     let webhookResponse;

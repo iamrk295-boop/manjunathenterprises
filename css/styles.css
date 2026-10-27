@@ -156,6 +156,9 @@ a {
 .brand-wrapper {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  text-decoration: none;
 }
 
 .brand-title {
@@ -166,6 +169,7 @@ a {
   text-transform: uppercase;
   color: var(--text-white);
   line-height: 1.1;
+  white-space: nowrap;
 }
 
 .brand-title span {
@@ -173,11 +177,14 @@ a {
 }
 
 .brand-subtitle {
+  font-family: var(--font-body);
   font-size: 11px;
   font-weight: 600;
-  color: var(--text-muted);
+  color: #94a3b8;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  line-height: 1.25;
+  margin-top: 2px;
 }
 
 .header-nav {
@@ -271,28 +278,48 @@ a {
   color: #ffffff;
 }
 
-/* Mobile Header Refinement for 320px–600px */
+/* ==========================================================================
+   Mobile Header Responsive Design (320px – 600px)
+   Maintains MANJUNATH BATTERIES brand prominence, clean 2-line subtitle,
+   and prevents squeeze/collision with right-side CALL NOW button.
+   ========================================================================== */
 @media (max-width: 600px) {
   .site-header {
-    padding: 8px 0;
+    padding: 7px 0;
   }
 
   .header-container {
     gap: 8px;
+    padding: 0 12px;
+  }
+
+  .brand-wrapper {
+    flex: 1 1 auto;
+    min-width: 0;
   }
 
   .brand-title {
-    font-size: 20px;
+    font-size: 19px;
+    letter-spacing: 0.3px;
+    line-height: 1.05;
   }
 
   .brand-subtitle {
-    font-size: 10px;
-    letter-spacing: 0.5px;
+    font-size: 8.5px;
+    letter-spacing: 0.2px;
+    line-height: 1.2;
+    margin-top: 2px;
+    color: #94a3b8;
+    display: block;
+    max-width: 220px;
+    white-space: normal;
   }
 
   .header-phone-btn {
+    flex-shrink: 0;
     padding: 6px 10px;
-    gap: 8px;
+    gap: 7px;
+    min-height: 40px;
   }
 
   .header-phone-icon-box {
@@ -306,21 +333,33 @@ a {
   }
 
   .header-phone-action {
-    font-size: 10px;
+    font-size: 9.5px;
+    letter-spacing: 0.5px;
   }
 
   .header-phone-digits {
-    font-size: 15px;
+    font-size: 14.5px;
+    letter-spacing: 0.3px;
   }
 }
 
-@media (max-width: 375px) {
+/* 390px (iPhone 12/13/14/15/16) & 375px (iPhone SE/6/7/8/Mini) */
+@media (max-width: 390px) {
+  .header-container {
+    gap: 7px;
+    padding: 0 10px;
+  }
+
   .brand-title {
-    font-size: 18px;
+    font-size: 17.5px;
+    letter-spacing: 0.2px;
   }
 
   .brand-subtitle {
-    display: none; /* Hide subtitle on ultra-narrow 320px–375px screens to ensure 1-line header */
+    font-size: 8px;
+    letter-spacing: 0.15px;
+    line-height: 1.15;
+    max-width: 195px;
   }
 
   .header-phone-btn {
@@ -328,9 +367,107 @@ a {
     gap: 6px;
   }
 
-  .header-phone-digits {
-    font-size: 14px;
+  .header-phone-icon-box {
+    width: 24px;
+    height: 24px;
   }
+
+  .header-phone-digits {
+    font-size: 13.5px;
+  }
+}
+
+/* 360px (Standard Android / Samsung Galaxy) */
+@media (max-width: 360px) {
+  .header-container {
+    gap: 6px;
+    padding: 0 8px;
+  }
+
+  .brand-title {
+    font-size: 16.5px;
+    letter-spacing: 0.2px;
+  }
+
+  .brand-subtitle {
+    font-size: 7.5px;
+    letter-spacing: 0.1px;
+    line-height: 1.12;
+    max-width: 175px;
+  }
+
+  .header-phone-btn {
+    padding: 5px 7px;
+    gap: 5px;
+  }
+
+  .header-phone-icon-box {
+    width: 22px;
+    height: 22px;
+  }
+
+  .header-phone-action {
+    font-size: 9px;
+  }
+
+  .header-phone-digits {
+    font-size: 13px;
+  }
+}
+
+/* 320px (iPhone SE 1st Gen & Ultra-Narrow Devices) */
+@media (max-width: 330px) {
+  .header-container {
+    gap: 4px;
+    padding: 0 6px;
+  }
+
+  .brand-title {
+    font-size: 15px;
+    letter-spacing: 0.1px;
+  }
+
+  .brand-subtitle {
+    font-size: 6.8px;
+    letter-spacing: 0;
+    line-height: 1.1;
+    max-width: 155px;
+  }
+
+  .header-phone-btn {
+    padding: 4px 6px;
+    gap: 4px;
+  }
+
+  .header-phone-icon-box {
+    display: none; /* Hide icon box at <=330px to guarantee zero squeeze */
+  }
+
+  .header-phone-action {
+    font-size: 8.5px;
+    letter-spacing: 0.3px;
+  }
+
+  .header-phone-digits {
+    font-size: 12.5px;
+    letter-spacing: 0.2px;
+  }
+}
+
+.btn-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  border-top-color: #ffffff;
+  animation: btn-spin 0.7s linear infinite;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
 }
 
 /* ==========================================================================
