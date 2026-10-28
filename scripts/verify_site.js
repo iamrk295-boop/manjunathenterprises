@@ -183,7 +183,34 @@ assert(indexHtml.includes('class="header-phone-digits">80740 15911</span>'), 'in
 assert(contactHtml.includes('class="header-phone-action">CALL NOW</span>'), 'contact-us.html header phone has "CALL NOW"');
 assert(privacyHtml.includes('class="header-phone-action">CALL NOW</span>'), 'privacy-policy.html header phone has "CALL NOW"');
 
-console.log('\n--- 10. API Callback Security & Reliability Tests (/api/callback) ---');
+console.log('\n--- 10. Service Areas Coverage & Highlight Verification ---');
+const requiredHighlightedAreas = [
+  'Whitefield',
+  'Belathur',
+  'Kadugodi',
+  'ITPL',
+  'Hoodi',
+  'Budigere Cross',
+  'Hoskote',
+  'AECS Layout'
+];
+
+requiredHighlightedAreas.forEach(area => {
+  assert(
+    indexHtml.includes(`class="area-chip area-chip-core">★ ${area}</span>`),
+    `index.html highlights "${area}" as a core primary area with star badge`
+  );
+  assert(
+    indexHtml.includes(`{ "@type": "Place", "name": "${area}" }`),
+    `index.html Schema.org areaServed includes "${area}"`
+  );
+});
+
+assert(indexHtml.includes('<span class="area-chip">Hope Farm</span>'), 'index.html includes secondary chip Hope Farm');
+assert(indexHtml.includes('<span class="area-chip">Brookefield</span>'), 'index.html includes secondary chip Brookefield');
+assert(indexHtml.includes('<span class="area-chip">KR Puram</span>'), 'index.html includes secondary chip KR Puram');
+
+console.log('\n--- 11. API Callback Security & Reliability Tests (/api/callback) ---');
 
 function createMockRes() {
   return {
